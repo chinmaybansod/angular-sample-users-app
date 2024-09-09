@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="d-flex flex-wrap flex-gap-15 justify-content-center">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Search Users</mat-label>
+        <input [(ngModel)]="searchString" matInput placeholder="Placeholder" (keyup)="searchHandler()">
+        <mat-icon matSuffix color="primary">search</mat-icon>
+      </mat-form-field>
+    </p>
+  </div>
+  <div class="d-flex flex-wrap flex-gap-15 justify-content-center">
+    <mat-card class="example-card" *ngFor="let user of searchedUserData">
+      <mat-card-header>
+        <div class="d-flex justify-content-center w-100">
+          <img
+            [src]="user.avatar"
+            class="avatar"
+            alt="Avatar for {{ user.email }}"
+          />
+        </div>
+        <mat-card-title
+          >{{ user.first_name }} {{ user.last_name }}</mat-card-title
+        >
+        <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="viewUserDetails(user.id)">View Details</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="d-flex justify-content-center w-100 pt-4">
+    <mat-paginator
+      #paginator
+      class="demo-paginator"
+      (page)="handlePageEvent($event)"
+      [length]="totalUsers"
+      [pageSize]="perPage"
+      [disabled]="disabled"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [hidePageSize]="hidePageSize"
+      [pageIndex]="currentPage"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>
